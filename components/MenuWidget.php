@@ -1,5 +1,6 @@
 <?php
 namespace app\components;
+use Yii;
 use yii\base\Widget;
 use app\models\Category;
 
@@ -20,9 +21,14 @@ class MenuWidget extends Widget
     }
 
     public function run(){
+        //get cash
+        $menu = Yii::$app->cache->get('menu');
+        if ($menu) return $menu;
+        //sat cash
         $this->data = Category::find()->indexBy('id')->asArray()->all();
         $this->tree = $this->getTree();
         $this->menuHtml = $this->getMenuHtml($this->tree);
+        Yii::$app->cache->set('menu',$this->menuHtml,24*60*60);
         return $this->menuHtml;
     }
 
