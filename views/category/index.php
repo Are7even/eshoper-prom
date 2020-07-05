@@ -5,7 +5,7 @@
 use app\components\MenuWidget;
 use yii\helpers\Html;
 
-$this->title = Yii::t('app', 'Головна сторінка')
+
 ?>
 <section id="slider"><!--slider-->
     <div class="container">

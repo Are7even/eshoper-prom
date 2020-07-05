@@ -17,6 +17,7 @@ class CategoryController extends AppController
     public function actionIndex(){
 
         $hits= Product::find()->where(['hit'=>$this->statusActive])->limit(6)->all();
+        $this->setMetaTag('E-SHOPPER');
 
         return $this->render('index',[
             'hits'=>$hits,
@@ -26,8 +27,11 @@ class CategoryController extends AppController
     public function actionView($id){
         $id = Yii::$app->request->get('id');
         $products = Product::find()->where(['category_id'=>$id])->all();
+        $category = Category::findOne($id);
+        $this->setMetaTag('E-SHOPPER | '.$category->name,$category->keywords,$category->description);
         return $this->render('view', [
             'products'=>$products,
+            'category'=>$category,
         ]);
     }
 
