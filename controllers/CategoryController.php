@@ -4,6 +4,7 @@
 namespace app\controllers;
 
 
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use Yii;
 use app\models\Category;
@@ -16,7 +17,12 @@ class CategoryController extends AppController
 
     public function actionIndex(){
 
-        $hits= Product::find()->where(['hit'=>$this->statusActive])->limit(6)->all();
+        $hits = new ActiveDataProvider([
+            'query'=> Product::find()->where(['hit'=>$this->statusActive])->limit(6),
+            'pagination' => [
+                'pageSize' => false,
+            ],
+        ]);
         $this->setMetaTag('E-SHOPPER');
 
         return $this->render('index',[
@@ -26,7 +32,14 @@ class CategoryController extends AppController
 
     public function actionView($id){
         $id = Yii::$app->request->get('id');
-        $products = Product::find()->where(['category_id'=>$id])->all();
+
+        $products = new ActiveDataProvider([
+           'query'=> Product::find()->where(['category_id'=>$id]),
+            'pagination' => [
+                'pageSize' => 15,
+            ],
+        ]);
+
         $category = Category::findOne($id);
         $this->setMetaTag('E-SHOPPER | '.$category->name,$category->keywords,$category->description);
         return $this->render('view', [

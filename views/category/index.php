@@ -4,6 +4,7 @@
 
 use app\components\MenuWidget;
 use yii\helpers\Html;
+use yii\widgets\ListView;
 
 
 ?>
@@ -123,33 +124,21 @@ use yii\helpers\Html;
                 <?php if (!empty($hits)): ?>
                     <h2 class="title text-center">Features Items</h2>
                     <div class="features_items"><!--features_items-->
-                        <?php foreach ($hits as $hit): ?>
-                            <div class="col-sm-4">
-                                <div class="product-image-wrapper">
-                                    <div class="single-products">
-                                        <div class="productinfo text-center">
-                                            <!--                                    <img src="" alt="" />-->
-                                            <?php echo Html::img('@web/images/products/' . $hit->img, ['alt' => $hit->name]) ?>
-                                            <h2>$<?php echo $hit->price; ?></h2>
-                                            <p><?php echo $hit->name; ?></p>
-                                            <a href="#" class="btn btn-default add-to-cart"><i
-                                                        class="fa fa-shopping-cart"></i>Add to cart</a>
-                                        </div>
-                                        <?php if ($hit->sale): ?>
-                                            <?php echo Html::img('@web/images/home/sale.png', ['class' => 'new']) ?>
-                                        <?php elseif ($hit->new): ?>
-                                            <?php echo Html::img('@web/images/home/new.png', ['class' => 'new']) ?>
-                                        <?php endif; ?>
-                                    </div>
-                                    <div class="choose">
-                                        <ul class="nav nav-pills nav-justified">
-                                            <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                            <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
+
+
+                        <?php echo
+                        ListView::widget([
+                            'dataProvider' => $hits,
+                            'options' => [
+                                'tag' => 'div',
+                                'class' => 'list-wrapper',
+                                'id' => 'list-wrapper',
+                            ],
+                            'layout' => "{items}\n{pager}",
+                            'itemView' => '_item-category',
+                        ]);
+                        ?>
+
                     </div><!--features_items-->
                 <?php endif; ?>
                 <div class="category-tab"><!--category-tab-->
