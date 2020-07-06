@@ -36,7 +36,9 @@ class CategoryController extends AppController
         $products = new ActiveDataProvider([
            'query'=> Product::find()->where(['category_id'=>$id]),
             'pagination' => [
-                'pageSize' => 15,
+                'pageSize' => 3,
+                'forcePageParam' => false,
+                'pageSizeParam'=> false,
             ],
         ]);
 
