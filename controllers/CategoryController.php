@@ -10,6 +10,7 @@ use yii\web\Controller;
 use Yii;
 use app\models\Category;
 use app\models\Product;
+use yii\web\HttpException;
 
 
 class CategoryController extends AppController
@@ -32,6 +33,12 @@ class CategoryController extends AppController
     }
 
     public function actionView($id){
+
+        $category = Category::findOne($id);
+        if (empty($category)){
+            throw new HttpException(404,'Такой категории не существует :)');
+        }
+
         $id = Yii::$app->request->get('id');
 
         $query = Product::find()->where(['category_id'=>$id]);
@@ -51,7 +58,8 @@ class CategoryController extends AppController
             ],
         ]);
 
-        $category = Category::findOne($id);
+
+
         $this->setMetaTag('E-SHOPPER | '.$category->name,$category->keywords,$category->description);
         return $this->render('view', [
             'products'=>$products,

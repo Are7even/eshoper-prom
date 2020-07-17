@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Product;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\web\HttpException;
 
 
 class ProductController extends AppController
@@ -18,6 +19,9 @@ class ProductController extends AppController
         $hits = Product::find()->where(['hit'=>$this->statusActive])->all();
 
         $product = Product::findOne($id);
+        if (empty($product)){
+            throw new HttpException(404,'Такого товара не существует :)');
+        }
 
         $this->setMetaTag('E-SHOPPER | '.$product->name,$product->keywords,$product->description);
 
