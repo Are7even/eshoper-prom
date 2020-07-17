@@ -62,20 +62,21 @@ use yii\widgets\ListView;
                                     'class' => 'list-wrapper',
                                     'id' => 'list-wrapper',
                                 ],
-                                'layout' => "{items}\n{pager}",
+                                'layout' => "{items}",
                                 'itemView' => '_item-category',
                                 'summaryOptions' => [
                                     'tag' => 'div',
                                     'class' => 'clearfix',
                                 ],
-
                             ]);
                             ?>
                         <?php else: ?>
                             <h2>В этой категории нет товаров...</h2>
                         <?php endif; ?>
-
                 </div><!--features_items-->
+                <?php echo \yii\widgets\LinkPager::widget([
+                    'pagination'=>$pages,
+                ]) ?>
             </div>
         </div>
 </section>

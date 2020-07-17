@@ -5,6 +5,7 @@ namespace app\controllers;
 
 
 use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
 use yii\web\Controller;
 use Yii;
 use app\models\Category;
@@ -33,6 +34,14 @@ class CategoryController extends AppController
     public function actionView($id){
         $id = Yii::$app->request->get('id');
 
+        $query = Product::find()->where(['category_id'=>$id]);
+        $countQuery = clone $query;
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 3]);
+        $pages->pageSizeParam = false;
+        $pages->forcePageParam = false;
+
+        $id = Yii::$app->request->get('id');
+
         $products = new ActiveDataProvider([
            'query'=> Product::find()->where(['category_id'=>$id]),
             'pagination' => [
@@ -47,6 +56,7 @@ class CategoryController extends AppController
         return $this->render('view', [
             'products'=>$products,
             'category'=>$category,
+            'pages'=>$pages,
         ]);
     }
 

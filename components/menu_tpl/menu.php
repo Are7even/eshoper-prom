@@ -5,7 +5,7 @@ use yii\helpers\Url; ?>
     <a href="<?php echo Url::to(['category/view', 'id' => $category['id']]) ?>">
         <?php echo $category['name']?>
         <?php if( isset($category['childs']) ): ?>
-            <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+            <span class="badge pull-right"><i class="fa fa-arrow-down"></i></span>
         <?php endif;?>
     </a>
     <?php if (isset($category['childs'])): ?>

@@ -19,6 +19,7 @@ ul li {
 a:hover {
 outline: none;
 text-decoration:none;
+  color: #1a1a1a;
 }
 
 a:focus {
@@ -31,6 +32,7 @@ a {
   -moz-transition: 300ms;
     -o-transition: 300ms;
     transition: 300ms;
+  color: #333333;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -1187,6 +1189,7 @@ h2.title {
   border: 1px solid #F7F7F0;
   height: 380px;
   width: 100%;
+  object-fit: cover
 }
 
 .view-product h3 {
@@ -2532,4 +2535,13 @@ h2.title {
   color: #FE980F;
 }
 
+ p.item_product_text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 5px;
+}
 
+.details p{
+  margin-left: 20px;
+}
